@@ -35,14 +35,6 @@ package.
 library(IRMaps)
 library(ggplot2)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 
 provinces <- irProvinces()
 ggplot(provinces)+
@@ -66,9 +58,6 @@ ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
 
 ``` r
 raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 6)
-#> old-style crs object detected; please recreate object with a recent sf::st_crs()
-#> old-style crs object detected; please recreate object with a recent sf::st_crs()
-#> old-style crs object detected; please recreate object with a recent sf::st_crs()
 
 ggplot() +
   geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
@@ -76,8 +65,6 @@ ggplot() +
   scale_fill_identity() +
   theme_map()+
   fullView()
-#> old-style crs object detected; please recreate object with a recent sf::st_crs()
-#> old-style crs object detected; please recreate object with a recent sf::st_crs()
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.svg" width="100%" />
