@@ -66,8 +66,7 @@ ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
 
 
 ```{r}
-raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 6)
-
+raster_tile <- get_raster_tile(iran_border,provider = "OpenTopoMap",zoom = 6)
 ggplot() +
   geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
   geom_sf(data = iran_border,color = "blue",alpha = 0.1) +

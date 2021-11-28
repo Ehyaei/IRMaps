@@ -128,7 +128,7 @@ irBorders <- function(){
 #' scale_fill_identity() +
 #' theme_void()
 get_raster_tile <- function(map, provider,zoom){
-  tile <- maptiles::get_tiles(x = map, provider = "OpenStreetMap.HOT",
+  tile <- maptiles::get_tiles(x = map, provider = provider,
                          crop = TRUE,
                          zoom = zoom, verbose = FALSE)
 
