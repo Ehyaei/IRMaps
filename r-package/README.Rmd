@@ -31,8 +31,6 @@ devtools::install_github("Ehyaei/IRMaps",subdir = "r-package")
 ```
 ## Available Maps
 
-The reference of the maps of the country divisions is [National Cartographic Center](https://www.ncc.gov.ir/en/) 
-and its last update is 2018.
 The following maps in the form of sf object, are included in the package.
 
 - Province (استان)
@@ -46,6 +44,8 @@ The following maps in the form of sf object, are included in the package.
 ```{r example}
 library(IRMaps)
 library(ggplot2)
+library(dplyr)
+
 provinces <- irProvinces()
 ggplot(provinces)+
   geom_sf()+
@@ -54,11 +54,22 @@ ggplot(provinces)+
 ```
 
 ```{r}
-library(dplyr)
-merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") %>% 
-  ggplot()+
-  geom_sf(aes(fill = TotalMale/TotalFemale),color = "white")+
-  scale_fill_map(palette = "TealRode",direction = -1)+
+data_map <- merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") 
+ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
+  geom_sf(color = "white",size = 0.1)+
+  scale_fill_map(palette = "TealRode")+
+  theme_map()+
+  fullView()
+```
+
+
+```{r}
+raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 6)
+
+ggplot() +
+  geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
+  geom_sf(data = iran_border,color = "blue",alpha = 0.1) +
+  scale_fill_identity() +
   theme_map()+
   fullView()
 ```

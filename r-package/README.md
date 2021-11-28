@@ -21,9 +21,7 @@ devtools::install_github("Ehyaei/IRMaps",subdir = "r-package")
 
 ## Available Maps
 
-The reference of the maps of the country divisions is [National
-Cartographic Center](https://www.ncc.gov.ir/en/) and its last update is
-2018. The following maps in the form of sf object, are included in the
+The following maps in the form of sf object, are included in the
 package.
 
 -   Province (استان)
@@ -36,6 +34,16 @@ package.
 ``` r
 library(IRMaps)
 library(ggplot2)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
 provinces <- irProvinces()
 ggplot(provinces)+
   geom_sf()+
@@ -46,21 +54,30 @@ ggplot(provinces)+
 <img src="man/figures/README-example-1.svg" width="100%" />
 
 ``` r
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") %>% 
-  ggplot()+
-  geom_sf(aes(fill = TotalMale/TotalFemale),color = "white")+
-  scale_fill_map(palette = "Earth",direction = -1)+
+data_map <- merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") 
+ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
+  geom_sf(color = "white",size = 0.1)+
+  scale_fill_map(palette = "TealRode")+
   theme_map()+
   fullView()
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.svg" width="100%" />
+
+``` r
+raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 6)
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+
+ggplot() +
+  geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
+  geom_sf(data = iran_border,color = "blue",alpha = 0.1) +
+  scale_fill_identity() +
+  theme_map()+
+  fullView()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.svg" width="100%" />
