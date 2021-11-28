@@ -1,53 +1,65 @@
 ---
-title: "IRMaps"
-output: html_document
+output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  dev = "svg"
+)
 ```
 
-## Feature
+# IRMaps
 
+<!-- badges: start -->
+<!-- badges: end -->
 
-### Maps
+The goal of IRMaps is to prepare geographical maps and divisions of Iran.
+
+## Installation
+
+You can install the development version of IRMaps from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Ehyaei/IRMaps",subdir = "r-package")
+```
+## Available Maps
 
 The reference of the maps of the country divisions is [National Cartographic Center](https://www.ncc.gov.ir/en/) 
 and its last update is 2018.
+The following maps in the form of sf object, are included in the package.
 
-- [X] Province (استان)
-- [X] Country (شهرستان)
-- [X] District (بخش)
-- [X] Rural (دهستان)
-- [X] City (شهر)
-- [X] Features (عوارض طبیعی)
+- Province (استان)
+- Country (شهرستان)
+- District (بخش)
+- City (شهر)
+- Rural District (دهستان)
+- Geographical Features (عوارض جغرافیایی)
 
-- province
-- county
-- district
-- rural
-- city
-- iran_boundary
-- iran_feature
-- iran_border
 
-```{r province}
-library(ggplot2)
-library(sf)
+```{r example}
 library(IRMaps)
-
-map_ploter(province)
-map_ploter(county)
-map_ploter(district)
-map_ploter(rural)
+library(ggplot2)
+provinces <- irProvinces()
+ggplot(provinces)+
+  geom_sf()+
+  theme_map()+
+  fullView()
 ```
 
-
-```{r county}
-library(geofabrik)
-p <- oe_read("~/Downloads/iran-latest.osm.pbf", layer = "points")
-
+```{r}
+library(dplyr)
+merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") %>% 
+  ggplot()+
+  geom_sf(aes(fill = TotalMale/TotalFemale),color = "white")+
+  scale_fill_map(palette = "TealRode",direction = -1)+
+  theme_map()+
+  fullView()
 ```
-
-
 

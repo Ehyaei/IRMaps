@@ -1,11 +1,27 @@
 Package: IRMaps
 Type: Package
-Title: What the Package Does (Title Case)
+Title: A package contains natural maps of Iran.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: 
+    person(given = "Ahmad",
+           family = "Ehyaei",
+           role = c("aut", "cre"),
+           email = "ahmad.ehyaei@gmail.com")
+Maintainer: Ahmad Ehyaei <ahmad.ehyaei@gmail.com>
+Description: .
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Depends: 
+    R (>= 2.10)
+RoxygenNote: 7.1.2
+Imports: 
+    sf,
+    dplyr,
+    ggplot2,
+    gridExtra,
+    terra,
+    maptiles,
+    ggmaptile
+Suggests: 
+    spelling
