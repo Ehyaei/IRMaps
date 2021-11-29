@@ -20,9 +20,9 @@ theme_map = function(base_size = 12){
     theme(
       legend.position = "bottom",
       legend.direction = "horizontal",
-      legend.title = element_text(size = rel(1), vjust = 1, hjust = 0, face = "bold"),
+      legend.title = element_text(size = rel(.7), vjust = 0.85, hjust = 0, face = "bold"),
       legend.margin = margin(0),
-      legend.text = element_text(size = rel(.7)),
+      legend.text = element_text(size = rel(.5)),
       legend.key.height = grid::unit(rel(0.5), "cm"),
       legend.key.width = grid::unit(rel(2), "cm"),
       axis.title = element_blank()
@@ -48,9 +48,9 @@ bottom_legend = function(){
   theme(
     legend.position = "bottom",
     legend.direction = "horizontal",
-    legend.title = element_text(size = rel(1), vjust = 1, hjust = 0, face = "bold"),
+    legend.title = element_text(size = rel(.7), vjust = 1, hjust = 0, face = "bold"),
     legend.margin = margin(0),
-    legend.text = element_text(size = rel(.7)),
+    legend.text = element_text(size = rel(.5)),
     legend.key.height = grid::unit(rel(0.5), "cm"),
     legend.key.width = grid::unit(rel(2), "cm"),
     axis.title = element_blank()

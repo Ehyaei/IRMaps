@@ -16,12 +16,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+<a href={https://github.com/Ehyaei/IRMaps}><img src="man/figures/IRMaps.svg" alt="tiling logo" align="right" width="160" style="padding: 0 15px; float: right;"/>
+
 # IRMaps
 
-<!-- badges: start -->
-<!-- badges: end -->
+```{r, echo = FALSE, results='asis', message=FALSE}
+cat(
+  badger::badge_devel("Ehyaei/IRMaps", "orange"),
+  badger::badge_lifecycle("experimental"),
+  badger::badge_last_commit("Ehyaei/IRMaps")
+)
+```
 
-The goal of IRMaps is to prepare geographical maps and divisions of Iran.
+The goal of `IRMaps` is to prepare geographical maps and divisions of Iran.
 
 ## Installation
 
@@ -43,35 +50,59 @@ The following maps in the form of sf object, are included in the package.
 - Geographical Features (عوارض جغرافیایی)
 
 
-```{r example}
+```{r iran_maps}
 library(IRMaps)
 library(ggplot2)
 library(dplyr)
 
 provinces <- irProvinces()
-ggplot(provinces)+
-  geom_sf()+
+counties <- irCounties()
+districts <- irDistricts()
+rurals <- irRurals()
+
+map_Plotter <- function(map){
+  ggplot(map)+
+  geom_sf(aes(fill = area), size = 0.1, color = "white") +
+  scale_fill_map(palette = "TealRode")+
   theme_map()+
+  theme(legend.position = "none")+
   fullView()
+}
+gridExtra::grid.arrange(
+  map_Plotter(provinces), map_Plotter(counties),
+  map_Plotter(districts),map_Plotter(rurals),
+                        nrow = 2)
 ```
 
-```{r}
+```{r heatmap}
 data_map <- merge(provinces, IRMaps::iran_population, by.x = "name_en", by.y = "Province") 
 ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
   geom_sf(color = "white",size = 0.1)+
   scale_fill_map(palette = "TealRode")+
+  labs(fill = "Gender Ratio")+
   theme_map()+
   fullView()
 ```
 
 
-```{r}
-raster_tile <- get_raster_tile(iran_border,provider = "OpenTopoMap",zoom = 6)
+```{r WorldImagery}
+raster_tile <- get_raster_tile(iran_border, provider = "Esri.WorldImagery",zoom = 7)
 ggplot() +
   geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
-  geom_sf(data = iran_border,color = "blue",alpha = 0.1) +
   scale_fill_identity() +
   theme_map()+
   fullView()
 ```
 
+## Cooperation Request
+
+If you have a map of Iran or demographic data, please let us know so we can add it to the package.
+
+## Attribution
+
+The following packages have been used in creating IRMaps. Many thanks to their creators.
+
+- Simon Garnier’s [viridis](https://github.com/sjmgarnier/viridis)
+- riatelab’s [maptiles](https://github.com/riatelab/maptiles)
+- Jeffrey W Hollister’s [elevatr](https://github.com/jhollist/elevatr)
+- rOpenSci’s [osmdata](https://github.com/ropensci/osmdata)
