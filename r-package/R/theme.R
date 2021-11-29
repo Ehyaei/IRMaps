@@ -23,7 +23,7 @@ theme_map = function(base_size = 12){
       legend.title = element_text(size = rel(.7), vjust = 0.85, hjust = 0, face = "bold"),
       legend.margin = margin(0),
       legend.text = element_text(size = rel(.5)),
-      legend.key.height = grid::unit(rel(0.5), "cm"),
+      legend.key.height = grid::unit(rel(0.3), "cm"),
       legend.key.width = grid::unit(rel(2), "cm"),
       axis.title = element_blank()
     )

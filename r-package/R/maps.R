@@ -153,7 +153,7 @@ get_elevation_tile <- function(map,zoom){
                                   clip = "locations", z = zoom, src="aws")
   elevation <- terra::as.data.frame(elevation, xy = TRUE)
   colnames(elevation)[3] <- "elevation"
-  return(elevation[complete.cases(ir_elevation), ])
+  return(elevation[complete.cases(elevation), ])
 }
 
 #' Get OSM Vector Tiles
@@ -177,7 +177,7 @@ get_osm_tile <- function(map, key = "highway",
     osmdata::opq() %>%
     osmdata::add_osm_feature(key = key, value = value) %>%
     osmdata::osmdata_sf() %>%
-    return()
+    return() # TODO: check crs
 }
 
 
