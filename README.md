@@ -72,6 +72,8 @@ ggplot(data_map,aes(fill = RuralareasMale/RuralareasFemale))+
 
 <img src="r-package/man/figures/README-heatmap-1.svg" width="100%" />
 
+## Add Raster Tiles
+
 ``` r
 raster_tile <- get_raster_tile(iran_border, provider = "Esri.WorldImagery",zoom = 7)
 ggplot() +
@@ -81,7 +83,47 @@ ggplot() +
   fullView()
 ```
 
-<img src="r-package/man/figures/README-WorldImagery-1.svg" width="100%" />
+<img src="r-package/man/figures/README-WorldImagery-1.png" width="100%" />
+
+## Download map vectors from OSM
+
+``` r
+Tehran = districts[districts$name_en == "Tehran",]
+osm_theran = get_osm_tile(Tehran)
+ggplot()+
+  geom_sf(data = Tehran, color = "#FE9F45", fill = "#FE9F45")+
+  geom_sf(data = osm_theran$osm_lines, color = "black", size= 0.2)+
+  theme_map()+
+  fullView()
+```
+
+<img src="r-package/man/figures/README-OSM-1.svg" width="100%" />
+
+## Download Elevation Data
+
+``` r
+tehran = rural[rural$name_en == "Tehran", ]
+dem_tehran = get_elevation_tile(tehran, 12)
+ggplot(dem_tehran, aes(x, y, fill = elevation))+
+  geom_raster()+
+  theme_map()+
+  fullView()+
+  scale_fill_map(palette = "Earth")+
+  coord_fixed()
+```
+
+<img src="r-package/man/figures/README-Elevation-1.svg" width="100%" />
+
+``` r
+library(rayshader)
+library(reshape2)
+acast(dem_tehran, x~y, value.var="elevation") -> elmat
+elmat[,ncol(elmat):1] %>%
+  sphere_shade(texture = "desert") %>%
+  plot_map()
+```
+
+<img src="r-package/man/figures/README-rayshader-1.png" width="100%" />
 
 ## Cooperation Request
 
