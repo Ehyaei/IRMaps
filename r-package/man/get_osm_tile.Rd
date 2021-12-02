@@ -25,7 +25,8 @@ opq object
 Get OSM Vector Tiles
 }
 \examples{
+library(ggplot2)
 osm <- get_osm_tile(city[city$name_en == "Qom",])
 ggplot()+
-  geom_sf(data = osm$osm_lines)
+  geom_sf(data = osm$osm_lines) + theme_map()
 }

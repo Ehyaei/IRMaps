@@ -29,7 +29,7 @@ Get Map Tiles
 library(ggplot2)
 raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 7)
 ggplot() +
-geom_raster(data = ir_raster,aes(x, y, fill = hex)) +
+geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
 geom_sf(data = iran_border,color = "blue",alpha = 0.1) +
 scale_fill_identity() +
 theme_void()

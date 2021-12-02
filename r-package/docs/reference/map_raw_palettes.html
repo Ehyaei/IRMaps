@@ -119,16 +119,22 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>palette</th>
-      <td></td>
+      <td><p>the name of palette</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>vector of hex colors</p>
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>map_raw_palettes</span><span class='op'>(</span><span class='st'>"BYR"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "#000072" "#0D528D" "#277973" "#419973" "#8BB895" "#D7E37D" "#FFFF33"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] "#FFB200" "#FF6B01" "#FF3D00" "#FF3D00" "#6E090D" "#000000"</span>
+<span class='r-in'><span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/show_col.html'>show_col</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='map_raw_palettes-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

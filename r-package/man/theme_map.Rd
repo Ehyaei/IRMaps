@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{theme_map}
 \alias{theme_map}
-\title{Theme for Plot Heatmaps}
+\title{Theme for Plotting Maps}
 \usage{
 theme_map(base_size = 12)
 }
@@ -10,17 +10,12 @@ theme_map(base_size = 12)
 ggplot2 theme
 }
 \description{
-Theme for Plot Heatmaps
+This theme remove axis lines, major and minor line to see the maps better.
 }
 \examples{
 library(ggplot2)
-# Dummy data
-x <- LETTERS[1:20]
-y <- paste0("var", seq(1,20))
-data <- expand.grid(X=x, Y=y)
-data$Z <- runif(400, 0, 5)
-# Heatmap
-ggplot(data, aes(X, Y, fill= Z)) +
-  geom_tile()+
+map <- irProvinces()
+ggplot(map)+
+  geom_sf(aes(fill = area), size = 0.1, color = "white") +
   theme_map()
 }

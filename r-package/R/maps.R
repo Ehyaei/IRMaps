@@ -4,9 +4,9 @@
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irProvinces()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irProvinces <- function(){
   return(IRMaps::province)
 }
@@ -17,9 +17,9 @@ irProvinces <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irCounties()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irCounties <- function(){
   return(IRMaps::county)
 }
@@ -30,9 +30,9 @@ irCounties <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irDistricts()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irDistricts <- function(){
   return(IRMaps::district)
 }
@@ -43,9 +43,9 @@ irDistricts <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irRurals()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irRurals <- function(){
   return(IRMaps::rural)
 }
@@ -56,9 +56,9 @@ irRurals <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irCities()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irCities <- function(){
   return(IRMaps::city)
 }
@@ -69,9 +69,9 @@ irCities <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irFeatures()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irFeatures <- function(){
   return(IRMaps::iran_feature)
 }
@@ -82,9 +82,9 @@ irFeatures <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irBorderProvinces()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irBorderProvinces <- function(){
   return(IRMaps::iran_boundary)
 }
@@ -95,9 +95,9 @@ irBorderProvinces <- function(){
 #' @export
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' map <- irBorders()
-#' ggplot(map) + geom_sf()
+#' ggplot(map) + geom_sf() + theme_map()
 irBorders <- function(){
   return(IRMaps::iran_border)
 }
@@ -117,13 +117,14 @@ irBorders <- function(){
 #' @param zoom 	the map zoom level between 1 to 20.
 #'
 #' @return data.frame with x,y and hex column
+#' @import dplyr
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
 #' raster_tile <- get_raster_tile(iran_border,provider = "Wikimedia",zoom = 7)
 #' ggplot() +
-#' geom_raster(data = ir_raster,aes(x, y, fill = hex)) +
+#' geom_raster(data = raster_tile, aes(x, y, fill = hex)) +
 #' geom_sf(data = iran_border,color = "blue",alpha = 0.1) +
 #' scale_fill_identity() +
 #' theme_void()
@@ -147,7 +148,17 @@ get_raster_tile <- function(map, provider,zoom){
 #'
 #' @return
 #' @export
-#'
+#' @examples
+#' library(ggplot2)
+#' rural <- irRurals()
+#' tehran = rural[rural$name_en == "Tehran", ]
+#' dem_tehran = get_elevation_tile(tehran, 12)
+#' ggplot(dem_tehran, aes(x, y, fill = elevation))+
+#'   geom_raster()+
+#'   theme_map()+
+#'   fullView()+
+#'   scale_fill_map(palette = "Earth")+
+#'   coord_fixed()
 get_elevation_tile <- function(map,zoom){
   elevation <- elevatr::get_elev_raster(locations = map,
                                   clip = "locations", z = zoom, src="aws")
@@ -167,9 +178,10 @@ get_elevation_tile <- function(map,zoom){
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' osm <- get_osm_tile(city[city$name_en == "Qom",])
 #' ggplot()+
-#'   geom_sf(data = osm$osm_lines)
+#'   geom_sf(data = osm$osm_lines) + theme_map()
 get_osm_tile <- function(map, key = "highway",
                          value = c("motorway", "primary", "secondary", "tertiary")){
   map <- sf::st_transform(map,"+proj=longlat +datum=WGS84")
@@ -179,6 +191,3 @@ get_osm_tile <- function(map, key = "highway",
     osmdata::osmdata_sf() %>%
     return() # TODO: check crs
 }
-
-
-

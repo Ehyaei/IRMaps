@@ -17,3 +17,15 @@ get_elevation_tile(map, zoom)
 \description{
 Get Elevation Map
 }
+\examples{
+library(ggplot2)
+rural <- irRurals()
+tehran = rural[rural$name_en == "Tehran", ]
+dem_tehran = get_elevation_tile(tehran, 12)
+ggplot(dem_tehran, aes(x, y, fill = elevation))+
+  geom_raster()+
+  theme_map()+
+  fullView()+
+  scale_fill_map(palette = "Earth")+
+  coord_fixed()
+}

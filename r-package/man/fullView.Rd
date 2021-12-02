@@ -13,3 +13,10 @@ fullView()
 Add this as a layer to a ggplot object,in
 order to remove axis margins.
 }
+\examples{
+library(ggplot2)
+map <- irProvinces()
+ggplot(map)+
+  geom_sf(aes(fill = area), size = 0.1, color = "white") +
+  fullView()
+}

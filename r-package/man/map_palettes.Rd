@@ -33,7 +33,9 @@ Defaults to `0` and `1` respectively}
 Title
 }
 \examples{
-map_palettes(15, begin = 0.3, end = 0.6, palette = 'Earth')
+cols <- map_palettes(15, begin = 0.3, end = 0.6, palette = 'Earth')
+cols
+scales::show_col(cols)
 }
 \references{
 [scico](https://github.com/thomasp85/scico)

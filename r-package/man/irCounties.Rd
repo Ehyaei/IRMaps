@@ -13,7 +13,7 @@ sf object map
 Iran's Counties Map
 }
 \examples{
-library(ggplot)
+library(ggplot2)
 map <- irCounties()
-ggplot(map) + geom_sf()
+ggplot(map) + geom_sf() + theme_map()
 }

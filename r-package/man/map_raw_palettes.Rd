@@ -7,11 +7,16 @@
 map_raw_palettes(palette)
 }
 \arguments{
-\item{palette}{}
+\item{palette}{the name of palette}
 }
 \value{
-
+vector of hex colors
 }
 \description{
 Access palette colors
+}
+\examples{
+cols <- map_raw_palettes("BYR")
+cols
+scales::show_col(cols)
 }

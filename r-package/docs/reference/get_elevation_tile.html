@@ -133,6 +133,22 @@
 
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>rural</span> <span class='op'>&lt;-</span> <span class='fu'><a href='irRurals.html'>irRurals</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tehran</span> <span class='op'>=</span> <span class='va'>rural</span><span class='op'>[</span><span class='va'>rural</span><span class='op'>$</span><span class='va'>name_en</span> <span class='op'>==</span> <span class='st'>"Tehran"</span>, <span class='op'>]</span></span>
+<span class='r-in'><span class='va'>dem_tehran</span> <span class='op'>=</span> <span class='fu'>get_elevation_tile</span><span class='op'>(</span><span class='va'>tehran</span>, <span class='fl'>12</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Mosaicing &amp; Projecting</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Clipping DEM to locations</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Note: Elevation units are in meters.</span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dem_tehran</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fill <span class='op'>=</span> <span class='va'>elevation</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='theme_map.html'>theme_map</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='fullView.html'>fullView</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='ggplot2-scales.html'>scale_fill_map</a></span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Earth"</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='get_elevation_tile-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -13,7 +13,7 @@ sf object map
 Iran's Provinces Map
 }
 \examples{
-library(ggplot)
+library(ggplot2)
 map <- irProvinces()
-ggplot(map) + geom_sf()
+ggplot(map) + geom_sf() + theme_map()
 }

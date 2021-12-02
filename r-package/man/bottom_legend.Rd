@@ -10,17 +10,12 @@ bottom_legend()
 ggplot2 theme
 }
 \description{
-Bottom Legend Theme
+This theme sete legend in bottom and set map design.
 }
 \examples{
 library(ggplot2)
-# Dummy data
-x <- LETTERS[1:20]
-y <- paste0("var", seq(1,20))
-data <- expand.grid(X=x, Y=y)
-data$Z <- runif(400, 0, 5)
-# Heatmap
-ggplot(data, aes(X, Y, fill= Z)) +
-  geom_tile()+
-  theme_map()
+map <- irProvinces()
+ggplot(map)+
+  geom_sf(aes(fill = area), size = 0.1, color = "white") +
+  bottom_legend()
 }

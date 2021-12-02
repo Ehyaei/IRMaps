@@ -59,7 +59,135 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-.
+
+
+<div id="irmaps" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#irmaps" class="anchor"></a>IRMaps</h1></div>
+<p><a href="https://github.com/Ehyaei/IRMaps"><img src="https://img.shields.io/badge/devel%20version-0.1.0-orange.svg"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg"></a> <a href="https://github.com/Ehyaei/IRMaps/commits/main"><img src="https://img.shields.io/github/last-commit/Ehyaei/IRMaps.svg"></a></p>
+<p>The goal of <code>IRMaps</code> is to prepare geographical maps and divisions of Iran.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the development version of IRMaps from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"Ehyaei/IRMaps"</span>,subdir <span class="op">=</span> <span class="st">"r-package"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="available-maps" class="section level2">
+<h2 class="hasAnchor">
+<a href="#available-maps" class="anchor"></a>Available Maps</h2>
+<p>The following maps in the form of sf object, are included in the package.</p>
+<ul>
+<li>Province (استان)</li>
+<li>Country (شهرستان)</li>
+<li>District (بخش)</li>
+<li>City (شهر)</li>
+<li>Rural District (دهستان)</li>
+<li>Geographical Features (عوارض جغرافیایی)</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">IRMaps</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+
+<span class="va">provinces</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/irProvinces.html">irProvinces</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/irCounties.html">irCounties</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">districts</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/irDistricts.html">irDistricts</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">rurals</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/irRurals.html">irRurals</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">map_Plotter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">map</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">area</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.1</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="reference/ggplot2-scales.html">scale_fill_map</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"TealRode"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/theme_map.html">theme_map</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/fullView.html">fullView</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span>
+  <span class="fu">map_Plotter</span><span class="op">(</span><span class="va">provinces</span><span class="op">)</span>, <span class="fu">map_Plotter</span><span class="op">(</span><span class="va">counties</span><span class="op">)</span>,
+  <span class="fu">map_Plotter</span><span class="op">(</span><span class="va">districts</span><span class="op">)</span>,<span class="fu">map_Plotter</span><span class="op">(</span><span class="va">rurals</span><span class="op">)</span>,
+                        nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-iran_maps-1.svg" width="100%"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">provinces</span>, <span class="fu">IRMaps</span><span class="fu">::</span><span class="va">iran_population</span>, by.x <span class="op">=</span> <span class="st">"name_en"</span>, by.y <span class="op">=</span> <span class="st">"Province"</span><span class="op">)</span> 
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data_map</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">RuralareasMale</span><span class="op">/</span><span class="va">RuralareasFemale</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span>,size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/ggplot2-scales.html">scale_fill_map</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"TealRode"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Gender Ratio"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/theme_map.html">theme_map</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/fullView.html">fullView</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-heatmap-1.svg" width="100%"></p>
+</div>
+<div id="add-raster-tiles" class="section level2">
+<h2 class="hasAnchor">
+<a href="#add-raster-tiles" class="anchor"></a>Add Raster Tiles</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">raster_tile</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_raster_tile.html">get_raster_tile</a></span><span class="op">(</span><span class="va">iran_border</span>, provider <span class="op">=</span> <span class="st">"Esri.WorldImagery"</span>,zoom <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">raster_tile</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">hex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="reference/theme_map.html">theme_map</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/fullView.html">fullView</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-WorldImagery-1.png" width="100%"></p>
+</div>
+<div id="download-map-vectors-from-osm" class="section level2">
+<h2 class="hasAnchor">
+<a href="#download-map-vectors-from-osm" class="anchor"></a>Download map vectors from OSM</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Tehran</span> <span class="op">=</span> <span class="va">districts</span><span class="op">[</span><span class="va">districts</span><span class="op">$</span><span class="va">name_en</span> <span class="op">==</span> <span class="st">"Tehran"</span>,<span class="op">]</span>
+<span class="va">osm_theran</span> <span class="op">=</span> <span class="fu"><a href="reference/get_osm_tile.html">get_osm_tile</a></span><span class="op">(</span><span class="va">Tehran</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">Tehran</span>, color <span class="op">=</span> <span class="st">"#FE9F45"</span>, fill <span class="op">=</span> <span class="st">"#FE9F45"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">osm_theran</span><span class="op">$</span><span class="va">osm_lines</span>, color <span class="op">=</span> <span class="st">"black"</span>, size<span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/theme_map.html">theme_map</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/fullView.html">fullView</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-OSM-1.svg" width="100%"></p>
+</div>
+<div id="download-elevation-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#download-elevation-data" class="anchor"></a>Download Elevation Data</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tehran</span> <span class="op">=</span> <span class="va">rural</span><span class="op">[</span><span class="va">rural</span><span class="op">$</span><span class="va">name_en</span> <span class="op">==</span> <span class="st">"Tehran"</span>, <span class="op">]</span>
+<span class="va">dem_tehran</span> <span class="op">=</span> <span class="fu"><a href="reference/get_elevation_tile.html">get_elevation_tile</a></span><span class="op">(</span><span class="va">tehran</span>, <span class="fl">12</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dem_tehran</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">elevation</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/theme_map.html">theme_map</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/fullView.html">fullView</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="reference/ggplot2-scales.html">scale_fill_map</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Earth"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-Elevation-1.svg" width="100%"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tylermorganwall/rayshader">rayshader</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/cast.html">acast</a></span><span class="op">(</span><span class="va">dem_tehran</span>, <span class="va">x</span><span class="op">~</span><span class="va">y</span>, value.var<span class="op">=</span><span class="st">"elevation"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">elmat</span>
+<span class="va">elmat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">elmat</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span> <span class="op"><a href="https://www.rayshader.com/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.rayshader.com/reference/sphere_shade.html">sphere_shade</a></span><span class="op">(</span>texture <span class="op">=</span> <span class="st">"desert"</span><span class="op">)</span> <span class="op"><a href="https://www.rayshader.com/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.rayshader.com/reference/plot_map.html">plot_map</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-rayshader-1.png" width="100%"></p>
+</div>
+<div id="cooperation-request" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cooperation-request" class="anchor"></a>Cooperation Request</h2>
+<p>If you have a map of Iran or demographic data, please let us know so we can add it to the package.</p>
+</div>
+<div id="attribution" class="section level2">
+<h2 class="hasAnchor">
+<a href="#attribution" class="anchor"></a>Attribution</h2>
+<p>The following packages have been used in creating IRMaps. Many thanks to their creators.</p>
+<ul>
+<li>Simon Garnier’s <a href="https://github.com/sjmgarnier/viridis">viridis</a>
+</li>
+<li>riatelab’s <a href="https://github.com/riatelab/maptiles">maptiles</a>
+</li>
+<li>Jeffrey W Hollister’s <a href="https://github.com/jhollist/elevatr">elevatr</a>
+</li>
+<li>rOpenSci’s <a href="https://github.com/ropensci/osmdata">osmdata</a>
+</li>
+</ul>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -76,7 +204,13 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="%7Bhttps://github.com/Ehyaei/IRMaps%7D"><img src="reference/figures/IRMaps.svg" alt="tiling logo" align="right" width="160" style="padding: 0 15px; float: right;"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

@@ -1,10 +1,14 @@
 #' Access palette colors
 #'
-#' @param palette
+#' @param palette the name of palette
 #'
-#' @return
+#' @return vector of hex colors
 #' @export
 #'
+#' @examples
+#' cols <- map_raw_palettes("BYR")
+#' cols
+#' scales::show_col(cols)
 map_raw_palettes <- function(palette){
 
   palettes <-  list(
@@ -39,7 +43,9 @@ map_raw_palettes <- function(palette){
 #' @export
 #'
 #' @examples
-#' map_palettes(15, begin = 0.3, end = 0.6, palette = 'Earth')
+#' cols <- map_palettes(15, begin = 0.3, end = 0.6, palette = 'Earth')
+#' cols
+#' scales::show_col(cols)
 map_palettes <- function(n, alpha = NULL, begin = 0, end = 1, direction = 1, palette = "BYR") {
   if (begin < 0 | begin > 1 | end < 0 | end > 1) {
     stop("begin and end must be in [0,1]")

@@ -13,7 +13,7 @@ sf object map
 Iran's Rurals Map
 }
 \examples{
-library(ggplot)
+library(ggplot2)
 map <- irRurals()
-ggplot(map) + geom_sf()
+ggplot(map) + geom_sf() + theme_map()
 }

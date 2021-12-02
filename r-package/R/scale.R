@@ -21,7 +21,6 @@
 #'
 #' @examples
 #'
-#' if (require('ggplot2')) {
 #'   volcano <- data.frame(
 #'     x = rep(seq_len(ncol(volcano)), each = nrow(volcano)),
 #'     y = rep(seq_len(nrow(volcano)), ncol(volcano)),
@@ -35,9 +34,6 @@
 #'   ggplot(iris, aes(x=Petal.Width, y=Petal.Length)) +
 #'     geom_point(aes(color=Species), size=10) +
 #'     scale_colour_map_d()
-#' }
-#'
-#'
 #'
 
 # Continuous scales -------------------------------------------------------
