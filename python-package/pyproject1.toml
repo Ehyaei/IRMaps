@@ -1,0 +1,48 @@
+[tool.poetry]
+authors = ["Ahmad Ehyaei"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Scientific/Engineering :: Iran",
+    "Programming Language :: Python",
+]
+description = "IRMaps:  A package contains natural maps of Iran"
+homepage = "https://github.com/Ehyaei/IRMaps"
+license = "MIT"
+name = "IRMaps"
+packages = [
+  {include = "IRMaps"},
+]
+readme = "README.md"
+repository = "https://github.com/Ehyaei/IRMaps"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+geopandas = "^0.7.0"
+shapely = "^1.7.0"
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | helpers/template
+)
+'''

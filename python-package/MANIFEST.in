@@ -1,0 +1,2 @@
+global-include README.md
+include IRMaps/data/8.geojson
