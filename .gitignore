@@ -2,5 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-.idea
-IRMaps/__pycache__/
+python-package/venv
+python-package/.idea
+.placeholder
+python-package/dist
+
+
