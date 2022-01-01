@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+.idea
+IRMaps/__pycache__/
